@@ -1,0 +1,27 @@
+/*
+ * Responsive root sizing mixin.
+ * Written by Robert Smith
+ *
+ */
+
+@mixin root-size() {
+  
+  // set breakpoints
+  $screen-sizes: $screen-md, $screen-sm, $screen-xs, $screen-xxs;
+  // set base font-size
+  font-size: nth($root-sizing-unit,1);
+  
+  @each $scr in $screen-sizes {
+    // loop through the screen sizes list.
+    
+    $index: index($screen-sizes, $scr);
+    $reduction: (($root-sizing-coefficient * $index));
+    $root-sizing-coefficient: $root-sizing-coefficient + 0.5;
+    
+    // get the current index
+    @media (max-width: $scr) {
+      width: $reduction;
+      font-size: $root-sizing-unit - $reduction;
+    }
+  }
+}
